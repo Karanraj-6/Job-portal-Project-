@@ -29,8 +29,8 @@ export const registerCompany = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
-  }
+        next(error);
+    }
 };
 export const getCompany = async (req, res) => {
   try {
@@ -47,8 +47,8 @@ export const getCompany = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
-  }
+        next(error);
+    }
 };
 // get company by id
 export const getCompanyById = async (req, res) => {
@@ -66,8 +66,8 @@ export const getCompanyById = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
-  }
+        next(error);
+    }
 };
 export const updateCompany = async (req, res) => {
   try {
@@ -99,6 +99,6 @@ export const updateCompany = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
-  }
+        next(error);
+    }
 };

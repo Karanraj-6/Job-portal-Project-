@@ -9,7 +9,7 @@ const isAuthenticated = async (req, res, next) => {
         success: false,
       });
     }
-    const decode = await jwt.verify(token, "kumar");
+    const decode = await jwt.verify(token, process.env.JWT_SECRET);
     if (!decode) {
       return res.status(401).json({
         message: "Invalid token",
@@ -19,7 +19,7 @@ const isAuthenticated = async (req, res, next) => {
     req.id = decode.userId;
     next();
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 export default isAuthenticated;

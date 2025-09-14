@@ -1,3 +1,5 @@
 import multer from "multer";
-const upload = multer({ storage: multer.memoryStorage() });
-router.post("/register", upload.single("file"), register);
+
+const storage = multer.memoryStorage();
+
+export const singleUpload = multer({storage}).single("file");

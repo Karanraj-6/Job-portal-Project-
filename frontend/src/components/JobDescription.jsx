@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { useParams } from "react-router-dom";
@@ -11,11 +11,10 @@ import { toast } from "sonner";
 const JobDescription = () => {
   const { singleJob } = useSelector((store) => store.job);
   const { user } = useSelector((store) => store.auth);
-  const isIntiallyApplied =
+  const isApplied =
     singleJob?.applications?.some(
       (application) => application.applicant === user?._id
     ) || false;
-  const [isApplied, setIsApplied] = useState(isIntiallyApplied);
 
   const params = useParams();
   const jobId = params.id;
@@ -29,7 +28,6 @@ const JobDescription = () => {
       );
 
       if (res.data.success) {
-        setIsApplied(true); // Update the local state
         const updatedSingleJob = {
           ...singleJob,
           applications: [...singleJob.applications, { applicant: user?._id }],
@@ -38,7 +36,7 @@ const JobDescription = () => {
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.log(error);
+      
       toast.error(error.response.data.message);
     }
   };
@@ -51,18 +49,13 @@ const JobDescription = () => {
         });
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job));
-          setIsApplied(
-            res.data.job.applications.some(
-              (application) => application.applicant === user?._id
-            )
-          ); // Ensure the state is in sync with fetched data
         }
       } catch (error) {
-        console.log(error);
+        
       }
     };
     fetchSingleJob();
-  }, [jobId, dispatch, user?._id]);
+  }, [jobId, dispatch]);
 
   return (
     <div className="max-w-7xl mx-auto my-10">
@@ -71,7 +64,7 @@ const JobDescription = () => {
           <h1 className="font-bold text-xl">{singleJob?.title}</h1>
           <div className="flex items-center gap-2 mt-4">
             <Badge className={"text-blue-700 font-bold"} variant="ghost">
-              {singleJob?.postion} Positions
+              {singleJob?.position} Positions
             </Badge>
             <Badge className={"text-[#F83002] font-bold"} variant="ghost">
               {singleJob?.jobType}

@@ -42,7 +42,7 @@ export const applyJob = async (req, res) => {
             success:true
         })
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 };
 export const getAppliedJobs = async (req,res) => {
@@ -67,7 +67,7 @@ export const getAppliedJobs = async (req,res) => {
             success:true
         })
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 }
 // admin dekhega kitna user ne apply kiya hai
@@ -92,7 +92,7 @@ export const getApplicants = async (req,res) => {
             succees:true
         });
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 }
 export const updateStatus = async (req,res) => {
@@ -125,6 +125,6 @@ export const updateStatus = async (req,res) => {
         });
 
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 }

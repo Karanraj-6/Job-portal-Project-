@@ -33,7 +33,7 @@ const Signup = () => {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("in", input);
+    
     const formData = new FormData(); //formdata object
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
@@ -55,7 +55,7 @@ const Signup = () => {
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.log(error);
+      
       toast.error(error.response.data.message);
     } finally {
       dispatch(setLoading(false));

@@ -7,7 +7,7 @@ import cloudinary from "../utils/cloudinary.js";
 export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
-    console.log("body", req.body);
+    
 
     if (!fullname || !email || !phoneNumber || !password || !role) {
       return res.status(400).json({
@@ -55,11 +55,7 @@ export const register = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      message: "An error occurred while creating the account.",
-      success: false,
-    });
+    next(error);
   }
 };
 
@@ -98,7 +94,7 @@ export const login = async (req, res) => {
     const tokenData = {
       userId: user._id,
     };
-    const token = await jwt.sign(tokenData, "kumar", {
+    const token = await jwt.sign(tokenData, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
@@ -124,7 +120,7 @@ export const login = async (req, res) => {
         success: true,
       });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 export const logout = async (req, res) => {
@@ -134,7 +130,7 @@ export const logout = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 export const updateProfile = async (req, res) => {
@@ -187,7 +183,7 @@ export const updateProfile = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    
     return res.status(500).json({
       message: "An error occurred while updating the profile.",
       success: false,
